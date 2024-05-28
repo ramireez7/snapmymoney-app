@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Perfil </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+@if(user){
+<ion-content [fullscreen]="true">
+  <ion-refresher #refresher slot="fixed" (ionRefresh)="reloadProfileInfo(refresher)">
+    <ion-refresher-content> </ion-refresher-content>
+  </ion-refresher>
+  <ion-item>
+    <ion-avatar>
+      <ion-img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"></ion-img>
+    </ion-avatar>
+    <ion-text>
+      <h1>{{user.name}}</h1>
+      <h6>{{user.email}}</h6>
+    </ion-text>
+  </ion-item>
+
+  <!-- Botones para editar -->
+  <div id="buttons">
+    <ion-button expand="block" (click)="openProfileModal()">
+      <ion-icon name="create-outline"></ion-icon>
+      <ion-label>Editar perfil</ion-label>
+    </ion-button>
+    <ion-button expand="block" (click)="openPasswordModal()">
+      <ion-icon name="lock-closed-outline"></ion-icon>
+      <ion-label>Editar contraseña</ion-label>
+    </ion-button>
+  </div>
+  <div id="logout-button">
+    <ion-button color="danger" class="w-100" (click)="logout()">
+      <ion-icon name="exit"></ion-icon>
+      <ion-label >Cerrar sesión</ion-label>
+    </ion-button>
+  </div>
+</ion-content>
+}

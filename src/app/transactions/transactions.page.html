@@ -1,0 +1,67 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Transacciones </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Transacciones</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Mis transacciones</ion-card-title>
+      @if(transactions.length > 0){
+      <ion-card-subtitle>El control es la clave del éxito</ion-card-subtitle>
+      }@else {
+      <ion-card-subtitle>Todavía no has registrado ninguna transacción</ion-card-subtitle>
+      }
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        @if(transactions.length > 0){ @for (transaction of transactions; track
+        transaction) {
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <img
+              alt="Silhouette of mountains"
+              [src]="transaction.transaction_type_id !== 1 ? 'https://cdn-icons-png.flaticon.com/128/9340/9340184.png' : 'https://cdn-icons-png.flaticon.com/128/9340/9340185.png'"
+            />
+          </ion-thumbnail>
+          <ion-grid>
+            <ion-row>
+              <ion-label>{{transaction.name}}</ion-label>
+            </ion-row>
+            <ion-row>
+              <ion-label class="transaction-category"
+                >{{transaction.transaction_category_id}}</ion-label
+              >
+            </ion-row>
+            <ion-row>
+              <ion-label
+                [color]="transaction.transaction_type_id === 1 ? 'danger' : 'success'"
+                >{{ transaction.amount | currency:'EUR':'symbol':'1.2-2'
+                }}</ion-label
+              >
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        } }@else {
+        <ion-button
+          [routerLink]="['/tabs/transactions']"
+          routerLinkActive="router-link-active"
+          class="d-flex"
+          >Registrar mi primera transacción</ion-button
+        >
+        }
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="secondary" [routerDirection]="'root'">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

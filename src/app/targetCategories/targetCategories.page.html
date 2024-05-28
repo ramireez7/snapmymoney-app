@@ -1,0 +1,57 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Categorías de objetivos </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Categorías de objetivos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Tus categorías de objetivos</ion-card-title>
+            @if(targetCategories.length > 0){
+              <ion-card-subtitle>Sigue adelante, ¡tú puedes!</ion-card-subtitle>
+            }@else {
+              <ion-card-subtitle>¡Crea tu primera categoría de objetivo!</ion-card-subtitle>
+            }
+    </ion-card-header>
+    <ion-card-content>
+      @if(targetCategories.length){
+      <ion-card>
+        @for (targetCategory of targetCategories; track targetCategory) {
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <img
+              alt="Silhouette of mountains"
+              src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
+            />
+          </ion-thumbnail>
+          <ion-grid>
+            <ion-row>
+              <ion-label>{{targetCategory.name}}</ion-label>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        }
+      </ion-card>
+      }@else {
+      <ion-button
+        [routerLink]="['/tabs/targetCategories/add']"
+        routerLinkActive="router-link-active"
+        class="d-flex"
+        >Crear mi primer objetivo</ion-button
+      >
+      }
+    </ion-card-content>
+  </ion-card>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="secondary" [routerDirection]="'root'">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

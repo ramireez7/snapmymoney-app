@@ -6,6 +6,9 @@ import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalo
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { baseUrlInterceptor } from './app/interceptors/base-url.interceptor';
+import { authTokenInterceptor } from './app/interceptors/auth-token.interceptor';
 
 if (environment.production) {
   enableProdMode();
@@ -16,5 +19,8 @@ bootstrapApplication(AppComponent, {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
     provideRouter(routes),
+    provideHttpClient(
+      withInterceptors([baseUrlInterceptor, authTokenInterceptor])
+    ),
   ],
 });
