@@ -19,15 +19,17 @@ import {
   IonCardSubtitle,
   IonImg,
   IonProgressBar,
+  IonIcon
 } from '@ionic/angular/standalone';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../auth/services/auth.service';
 import { User } from '../auth/interfaces/user';
-import { CurrencyPipe, SlicePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe, SlicePipe } from '@angular/common';
 import { Transaction } from '../transactions/interfaces/transaction';
 import { Target } from '../targets/interfaces/target';
 import { TransactionService } from '../transactions/services/transaction.service';
 import { TargetService } from '../targets/services/target.service';
+import { TransactionCategoryService } from '../transactionCategories/services/transactionCategory.service';
 @Component({
   selector: 'home',
   templateUrl: 'home.page.html',
@@ -58,6 +60,8 @@ import { TargetService } from '../targets/services/target.service';
     IonProgressBar,
     CurrencyPipe,
     SlicePipe,
+    DatePipe,
+    IonIcon,
   ],
 })
 export class HomePage {
@@ -65,15 +69,15 @@ export class HomePage {
   #authService = inject(AuthService);
   transactions: Transaction[] = [];
   #transactionsService = inject(TransactionService);
+  #transactionCategoryService = inject(TransactionCategoryService);
   targets: Target[] = [];
   #targetsService = inject(TargetService);
-  balance = 0;
 
   calculateBalance(transactions: Transaction[]): number {
     let balance = 0;
     transactions.forEach((transaction) => {
       const amount = Number(transaction.amount) ?? 0;
-      if (transaction.transaction_type_id === 1) {
+      if (transaction.transaction_type_id === 2) {
         balance += amount;
       } else {
         balance -= amount;
@@ -85,15 +89,25 @@ export class HomePage {
   ionViewWillEnter() {
     this.#authService.getProfile().subscribe((user) => {
       this.user = user;
-      
+
       this.#targetsService.getTargetsByUserId(user.id!).subscribe((targets) => {
         this.targets = targets;
       });
-      
-      this.#transactionsService.getTransactionsByUserId(user.id!).subscribe((transactions) => {
-        this.transactions = transactions;
-        this.balance = this.calculateBalance(transactions);
-      });
+
+      this.#transactionsService
+        .getTransactionsByUserId(user.id!)
+        .subscribe((transactions) => {
+          this.transactions = transactions;
+          this.transactions.forEach((transaction) => {
+            console.log(transaction);
+            this.#transactionCategoryService
+              .getTransactionCategoryById(transaction.transaction_category_id!)
+              .subscribe((transactionCategory) => {
+                transaction.transaction_category_name =
+                  transactionCategory.name;
+              });
+          });
+        });
     });
   }
 }

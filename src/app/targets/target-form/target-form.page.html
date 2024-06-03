@@ -11,25 +11,26 @@
   <form #targetForm="ngForm" (ngSubmit)="addTarget()">
     <ion-list>
       <ion-item>
-        <ion-input name="name" [(ngModel)]="newTarget.name" #nameModel="ngModel" label="Nombre del objetivo" labelPlacement="floating"></ion-input>
+        <ion-input name="name" required [(ngModel)]="newTarget.name" #nameModel="ngModel" label="Nombre del objetivo" labelPlacement="floating"></ion-input>
         @if (nameModel.dirty && nameModel.valid) {
           <ion-icon name="checkmark-circle" slot="end" color="success"></ion-icon>
         }
       </ion-item>
       <ion-item>
-        <ion-input name="target_amount" [(ngModel)]="newTarget.target_amount" #amountModel="ngModel" label="Dinero a ahorrar" labelPlacement="floating"></ion-input>
+        <ion-input name="target_amount" type="number" required [(ngModel)]="newTarget.target_amount" #amountModel="ngModel" label="Dinero a ahorrar" labelPlacement="floating"></ion-input>
         @if (amountModel.dirty && amountModel.valid) {
           <ion-icon name="checkmark-circle" slot="end" color="success"></ion-icon>
         }
       </ion-item>
       <ion-item>
       <ion-select
-        label="Categoría de objetivo"
+        label="Categoría de objetivo (opcional)"
         [multiple]="false"
         [(ngModel)]="newTarget.target_category_id"
         name="mood"
         label-placement="floating"
       >
+      <ion-select-option [value]="null">Sin categoría</ion-select-option>
       @for(targetCategory of targetCategories; track targetCategory){
         <ion-select-option value="{{targetCategory.id}}">{{targetCategory.name}}</ion-select-option>
       }
@@ -46,7 +47,7 @@
           </ion-button>
         </ion-col>
         <ion-col>
-          <ion-button color="danger" expand="block" fill="outline" [routerLink]="['/targets']" [routerDirection]="'root'">
+          <ion-button color="danger" expand="block" fill="outline" [routerLink]="['/tabs/targets']" [routerDirection]="'root'">
             <ion-icon name="arrow-undo-circle" slot="start"></ion-icon>
             Cancelar
           </ion-button>

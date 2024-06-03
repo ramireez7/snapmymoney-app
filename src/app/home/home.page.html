@@ -10,40 +10,58 @@
       <ion-grid>
         <ion-row>
           <ion-col size-lg="12">
-            <h1 class="text-center mt-0">Balance actual</h1>
+            <h1 class="text-center mt-0">Balance total</h1>
           </ion-col>
         </ion-row>
         <ion-row class="flex-center">
-          @if(balance < 0){
+          @if(user.balance! < 0){
           <h1 class="bg-dark-tint mt-0 balance negative-glow-box">
-            {{ (balance ? balance : 0) | currency:'EUR':'symbol':'1.2-2' }}
+            {{ user.balance | currency:'EUR':'symbol':'1.2-2' }}
           </h1>
-          }@else if(balance > 0){
+          }@else if(user.balance! > 0){
           <h1 class="bg-dark-tint mt-0 balance positive-glow-box">
-            {{ (balance ? balance : 0) | currency:'EUR':'symbol':'1.2-2' }}
+            {{ user.balance | currency:'EUR':'symbol':'1.2-2' }}
           </h1>
           }@else {
-            <h1 class="bg-dark-tint mt-0 balance neutral-glow-box">
-            {{ (balance ? balance : 0) | currency:'EUR':'symbol':'1.2-2' }}
+          <h1 class="bg-dark-tint mt-0 balance neutral-glow-box">
+            {{ user.balance | currency:'EUR':'symbol':'1.2-2' }}
           </h1>
+          }
+        </ion-row>
+        <br />
+        <ion-row>
+          <ion-col size-lg="12">
+            <h4 class="text-center mt-0">Balance mensual</h4>
+          </ion-col>
+        </ion-row>
+        <ion-row class="flex-center">
+          @if(user.balance! < 0){
+          <h5 class="bg-dark-tint mt-0 balance negative-glow-box">
+            {{ user.balance | currency:'EUR':'symbol':'1.2-2' }}
+          </h5>
+          }@else if(user.balance! > 0){
+          <h5 class="bg-dark-tint mt-0 balance positive-glow-box">
+            {{ user.balance | currency:'EUR':'symbol':'1.2-2' }}
+          </h5>
+          }@else {
+          <h5 class="bg-dark-tint mt-0 balance neutral-glow-box">
+            {{ user.balance | currency:'EUR':'symbol':'1.2-2' }}
+          </h5>
           }
         </ion-row>
       </ion-grid>
     </ion-card-content>
   </ion-card>
 
-  <ion-card
-    [routerLink]="['/tabs/transactions']"
-    routerLinkActive="router-link-active"
-  >
+  <ion-card>
     <ion-card-header>
       <ion-card-title>Últimas transacciones</ion-card-title>
-      <ion-card-subtitle>ESTE MES</ion-card-subtitle>
+      <ion-card-subtitle>Estas son tus transacciones más recientes</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
       <ion-list>
-        @if(transactions.length > 0){ @for (transaction of transactions |
-        slice:0:4; track transaction) {
+        @if(transactions.length > 0){ @for (transaction of transactions; track
+        transaction) {
         <ion-item>
           <ion-thumbnail slot="start">
             <img
@@ -52,26 +70,38 @@
             />
           </ion-thumbnail>
           <ion-grid>
+             <ion-row>
+              <ion-label class="transaction-category"
+                >{{transaction.created | date:"dd/MM/yyyy" }}</ion-label
+              >
+            </ion-row>
             <ion-row>
               <ion-label>{{transaction.name}}</ion-label>
             </ion-row>
             <ion-row>
               <ion-label class="transaction-category"
-                >{{transaction.transaction_category_id}}</ion-label
+                >{{transaction.transaction_category_id ? transaction.transaction_category_name : "Sin categoría"}}</ion-label
               >
             </ion-row>
             <ion-row>
-              <ion-label
-                [color]="transaction.transaction_type_id === 1 ? 'danger' : 'success'"
-                >{{ transaction.amount | currency:'EUR':'symbol':'1.2-2'
-                }}</ion-label
-              >
+              @if(transaction.transaction_type_id === 1){
+                 <ion-label class="bg-dark-tint mt-0 positive-transaction">
+                -{{transaction.amount | currency:'EUR':'symbol':'1.2-2' }}
+                </ion-label> 
+              }@else {
+                <ion-label class="bg-dark-tint mt-0 negative-transaction">
+                +{{ transaction.amount | currency:'EUR':'symbol':'1.2-2' }}
+                </ion-label> 
+              }
             </ion-row>
           </ion-grid>
+          <ion-button slot="end" fill="clear" color="medium " size="big" [routerLink]="['/tabs/transactions/'+ transaction.id]" routerLinkActive="router-link-active">
+            <ion-icon slot="icon-only" name="pencil"></ion-icon>
+          </ion-button>
         </ion-item>
         } }@else {
         <ion-button
-          [routerLink]="['/tabs/transactions']"
+          [routerLink]="['/tabs/transactions/add']"
           routerLinkActive="router-link-active"
           class="d-flex"
           >Registrar mi primera transacción</ion-button
@@ -101,7 +131,8 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
+  <ion-card [routerLink]="['/tabs/targets']"
+          routerLinkActive="router-link-active">
     <ion-card-header>
       <ion-card-title>Tu progreso hacia tus objetivos</ion-card-title>
       <ion-card-subtitle
@@ -109,7 +140,7 @@
       >
     </ion-card-header>
     <ion-card-content>
-      @if(targets.length){
+      @if(targets.length > 0){
       <ion-card>
         @for (target of targets | slice:0:4; track target) {
         <ion-item>
@@ -125,10 +156,13 @@
             </ion-row>
             <ion-row>
               <ion-progress-bar
-                [value]="target.current_amount / target.target_amount"
+                [value]="target.current_amount! / target.target_amount!"
               ></ion-progress-bar>
             </ion-row>
           </ion-grid>
+          <ion-button slot="end" fill="clear" color="medium " size="big" [routerLink]="['/tabs/transactions/'+ target.id]"routerLinkActive="router-link-active">
+            <ion-icon slot="icon-only" name="pencil"></ion-icon>
+          </ion-button>
         </ion-item>
         }
       </ion-card>
@@ -137,7 +171,7 @@
         [routerLink]="['/tabs/targets']"
         routerLinkActive="router-link-active"
         class="d-flex"
-        >Crear mi primer objetivo</ion-button
+        >Ir al apartado de objetivos</ion-button
       >
       }
     </ion-card-content>

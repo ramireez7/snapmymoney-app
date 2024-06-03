@@ -66,7 +66,7 @@ export class RegisterPage {
     this.#authService.register(this.user).subscribe(async () => {
       (
         await this.#toastCtrl.create({
-          duration: 3000,
+          duration: 2000,
           position: 'bottom',
           message: 'User registered!',
         })

@@ -101,9 +101,9 @@ export class ProfilePage {
             email: result.data.user.email,
           }, result.data.user.id!)
           .subscribe();
-        this.presentToast('Profile updated successfully!', 'success');
+        this.presentToast('Perfil actualizado con éxito!', 'success');
       } catch (error) {
-        this.presentToast('An error ocurred updating the profile', 'error');
+        this.presentToast('"Ha ocurrido un error al actualizar el perfil"', 'error');
       }
     }
   }
@@ -123,9 +123,9 @@ export class ProfilePage {
         await this.#profileService
           .savePassword({ password: result.data.user.password })
           .subscribe();
-        this.presentToast('Password updated successfully!', 'success');
+        this.presentToast('Contraseña actualizada con éxito!', 'success');
       } catch (error) {
-        this.presentToast('An error ocurred changing the password', 'error');
+        this.presentToast('Ha ocurrido un error actualizando la contraseña', 'error');
       }
     }
   }
@@ -133,7 +133,7 @@ export class ProfilePage {
   async presentToast(message: string, messageType: 'success' | 'error') {
     const toast = await this.#toastCtrl.create({
       message: message,
-      duration: 3000,
+      duration: 2000,
       position: 'bottom',
       color: messageType === 'success' ? 'success' : 'danger',
     });

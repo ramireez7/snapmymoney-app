@@ -1,0 +1,56 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Transacción </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+@if(transaction){
+<ion-content [fullscreen]="true">
+  <ion-refresher
+    #refresher
+    slot="fixed"
+    (ionRefresh)="reloadtransactionInfo(refresher)"
+  >
+    <ion-refresher-content> </ion-refresher-content>
+  </ion-refresher>
+  <ion-item>
+    <ion-avatar>
+      <ion-img
+        [src]="transaction.transaction_type_id !== 1 ? 'https://cdn-icons-png.flaticon.com/128/9340/9340184.png' : 'https://cdn-icons-png.flaticon.com/128/9340/9340185.png'"
+      ></ion-img>
+    </ion-avatar>
+    <ion-text>
+      <h2>{{transaction.name}}</h2>
+      <div class="d-flex"><ion-label>Tipo:</ion-label><h6 class="mt-0 ml-5">{{transaction.transaction_type_id === 1 ? "Gasto" : "Ingreso"}}</h6></div>
+      <div class="d-flex"><ion-label>Categoría:</ion-label><h6 class="mt-0 ml-5">{{transaction.transaction_category_id ? transaction.transaction_category_name : "Sin categoría"}}</h6></div>
+      <div class="d-flex"><ion-label>Cuantía:</ion-label><h6 class="mt-0 ml-5">{{transaction.amount | currency: "EUR"}}</h6></div>
+      <div class="d-flex"><ion-label>Fecha de registro:</ion-label><h6 class="mt-0 ml-5">{{transaction.created | date:"dd/MM/yyyy"}}</h6></div>
+      <div class="d-flex"><ion-label>Hora:</ion-label><h6 class="mt-0 ml-5">{{transaction.created | date:"HH:ss"}}</h6></div>
+
+    </ion-text>
+  </ion-item>
+
+  <!-- Botones para editar -->
+  <div id="buttons">
+    <ion-button expand="block" (click)="openTransactionDetailModal()">
+      <ion-icon name="create-outline"></ion-icon>
+      <ion-label>Editar</ion-label>
+    </ion-button>
+    <ion-button color="danger" (click)="deleteTransaction(transaction.id!)">
+      <ion-icon name="trash-sharp"></ion-icon>
+      <ion-label>Eliminar</ion-label>
+    </ion-button>
+  </div>
+  <ion-button
+    color="danger"
+    class="go-back"
+    expand="block"
+    fill="outline"
+    [routerLink]="['/tabs/transactions']"
+    [routerDirection]="'root'"
+  >
+    <ion-icon name="arrow-undo-circle" slot="start"></ion-icon>
+    Volver a transacciones
+  </ion-button>
+</ion-content>
+}

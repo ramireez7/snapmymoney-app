@@ -73,8 +73,8 @@ export class TargetFormPage {
   newTarget: TargetInsert = {
     name: '',
     user_id: 0,
-    target_amount: 0,
-    target_category_id: 0,
+    target_amount: undefined,
+    target_category_id: undefined,
   };
 
   #authService = inject(AuthService);
@@ -83,7 +83,7 @@ export class TargetFormPage {
   #toastCtrl = inject(ToastController);
   #nav = inject(NavController);
 
-  inoViewWillEnter() {
+  ionViewWillEnter() {
     this.#authService.getProfile().subscribe((user) => {
       this.user = user;
       this.newTarget.user_id = this.user.id!;
@@ -91,7 +91,6 @@ export class TargetFormPage {
 
     this.#targetCategoryService.getTargetCategories().subscribe((targetCategories) => {
       this.targetCategories = targetCategories;
-      console.log(targetCategories);
     });
   }
 
@@ -112,7 +111,7 @@ export class TargetFormPage {
             color: 'success',
           })
         ).present();
-        this.#nav.navigateRoot(['/targets']);
+        this.#nav.navigateRoot(['/tabs/targets']);
       },
       async (error) =>
         (
@@ -127,13 +126,13 @@ export class TargetFormPage {
 
   targetFormValid() {
     if (
-      !this.newTarget.name &&
-      !this.newTarget.user_id &&
-      !this.newTarget.target_amount
+      this.newTarget.name &&
+      this.newTarget.target_amount &&
+      this.newTarget.user_id
     ) {
-      return false;
-    } else {
       return true;
+    } else {
+      return false;
     }
   }
 }

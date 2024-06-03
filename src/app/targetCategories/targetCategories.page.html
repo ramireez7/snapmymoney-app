@@ -21,7 +21,7 @@
             }
     </ion-card-header>
     <ion-card-content>
-      @if(targetCategories.length){
+      @if(targetCategories.length > 0){
       <ion-card>
         @for (targetCategory of targetCategories; track targetCategory) {
         <ion-item>
@@ -36,6 +36,9 @@
               <ion-label>{{targetCategory.name}}</ion-label>
             </ion-row>
           </ion-grid>
+          <ion-button slot="end" fill="clear" color="medium " size="big">
+            <ion-icon slot="icon-only" name="pencil"></ion-icon>
+          </ion-button>
         </ion-item>
         }
       </ion-card>

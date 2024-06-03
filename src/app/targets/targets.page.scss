@@ -1,0 +1,19 @@
+.transaction-category {
+  color: var(--ion-color-medium-tint);
+}
+
+ion-progress-bar{
+  border-radius: 5px;
+  height: 10px;
+  background-color: white;
+}
+
+.above-progress-bar{
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+
+  h6{
+    font-size: 13px;
+  }
+}

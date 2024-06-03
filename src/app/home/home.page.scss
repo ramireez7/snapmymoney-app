@@ -11,17 +11,33 @@ ion-card {
   color: whitesmoke;
 }
 
+.positive-transaction {
+  position: relative;
+  background-color: var(--ion-color-danger-shade);
+  padding: 0px 3px;
+  border-radius: 2px;
+  color: whitesmoke;
+}
+
+.negative-transaction {
+  position: relative;
+  background-color: var(--ion-color-primary-shade);
+  padding: 0px 3px;
+  border-radius: 2px;
+  color: whitesmoke;
+}
+
 .positive-glow-box {
   position: relative;
-  background-color: var(--ion-color-secondary);
-  box-shadow: 0 0 8px var(--ion-color-tertiary);
+  background-color: var(--ion-color-primary-shade);
+  box-shadow: 0 0 8px var(--ion-color-primary);
   overflow: hidden;
 }
 
 .negative-glow-box {
   position: relative;
-  background-color: var(--ion-color-danger-tint);
-  box-shadow: 0 0 8px var(--ion-color-danger-tint);
+  background-color: var(--ion-color-danger-shade);
+  box-shadow: 0 0 8px var(--ion-color-danger);
   overflow: hidden;
 }
 

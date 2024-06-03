@@ -19,6 +19,20 @@ export const tabsRoutes: Routes = [
           ),
       },
       {
+        path: 'transactions/add',
+        loadComponent: () =>
+          import('../transactions/transaction-form/transaction-form.page').then(
+            (m) => m.TransactionFormPage
+          ),
+      },
+      {
+        path: 'transactions/:id',
+        loadComponent: () =>
+          import(
+            '../transactions/transaction-detail/transaction-detail.page'
+          ).then((m) => m.TransactionDetailPage),
+      },
+      {
         path: 'targets',
         loadComponent: () =>
           import('../targets/targets.page').then((m) => m.TargetsPage),
@@ -26,7 +40,16 @@ export const tabsRoutes: Routes = [
       {
         path: 'targets/add',
         loadComponent: () =>
-          import('../targets/target-form/target-form.page').then((m) => m.TargetFormPage),
+          import('../targets/target-form/target-form.page').then(
+            (m) => m.TargetFormPage
+          ),
+      },
+      {
+        path: 'targets/:id',
+        loadComponent: () =>
+          import(
+            '../targets/target-detail/target-detail.page'
+          ).then((m) => m.TargetDetailPage),
       },
       {
         path: 'profile',

@@ -17,17 +17,19 @@
       @if(targets.length > 0){
       <ion-card-subtitle>Sigue adelante, ¡tú puedes!</ion-card-subtitle>
       }@else {
-      <ion-card-subtitle>Todavía no tienes objetivos, ¿por qué no creas uno?</ion-card-subtitle>
+      <ion-card-subtitle
+        >Todavía no tienes objetivos, ¿por qué no creas uno?</ion-card-subtitle
+      >
       }
     </ion-card-header>
     <ion-card-content>
-      @if(targets.length){
+      @if(targets.length > 0){
       <ion-card>
         @for (target of targets; track target) {
         <ion-item>
           <ion-thumbnail slot="start">
             <img
-              alt="Silhouette of mountains"
+              alt="Target icon"
               src="https://cdn-icons-png.flaticon.com/128/9340/9340209.png"
             />
           </ion-thumbnail>
@@ -36,11 +38,27 @@
               <ion-label>{{target.name}}</ion-label>
             </ion-row>
             <ion-row>
+              <ion-label class="transaction-category"
+                >{{target.target_category_id ? target.target_category_name : "Sin categoría"}}</ion-label
+              >
+            </ion-row>
+            <ion-row class="above-progress-bar">
+              <h6>
+                {{target.current_amount! * 100 / target.target_amount! + "%"}}</h6
+              >
+              <h6>
+                {{target.target_amount | currency: "EUR"}}</h6
+              >
+            </ion-row>
+            <ion-row>
               <ion-progress-bar
-                [value]="target.current_amount / target.target_amount"
+                [value]="target.current_amount! / target.target_amount!"
               ></ion-progress-bar>
             </ion-row>
           </ion-grid>
+          <ion-button slot="end" fill="clear" color="medium " size="big" [routerLink]="['/tabs/targets/'+ target.id]"routerLinkActive="router-link-active">
+            <ion-icon slot="icon-only" name="pencil"></ion-icon>
+          </ion-button>
         </ion-item>
         }
       </ion-card>

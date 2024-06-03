@@ -77,7 +77,7 @@ export class TargetCategoryFormPage {
   #toastCtrl = inject(ToastController);
   #nav = inject(NavController);
 
-  inoViewWillEnter() {
+  ionViewWillEnter() {
     this.#authService.getProfile().subscribe((user) => {
       this.user = user;
       this.newTargetCategory.user_id = this.user.id!;
@@ -94,7 +94,7 @@ export class TargetCategoryFormPage {
         (
           await this.#toastCtrl.create({
             position: 'bottom',
-            duration: 3000,
+            duration: 2000,
             message: 'TargetCategory added succesfully',
             color: 'success',
           })
@@ -105,7 +105,7 @@ export class TargetCategoryFormPage {
         (
           await this.#toastCtrl.create({
             position: 'bottom',
-            duration: 3000,
+            duration: 2000,
             message: 'Error adding targetCategory',
           })
         ).present()
@@ -114,7 +114,7 @@ export class TargetCategoryFormPage {
 
   targetCategoryFormValid() {
     if (
-      !this.newTargetCategory.name &&
+      !this.newTargetCategory.name ||
       !this.newTargetCategory.user_id
     ) {
       return false;

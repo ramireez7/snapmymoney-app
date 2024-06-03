@@ -5,7 +5,7 @@ import { AuthService } from './auth/services/auth.service';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { addIcons } from 'ionicons';
-import { cashOutline, homeOutline, personOutline, rocketOutline, add, arrowUndoCircle, documentText, logIn, exit, lockClosedOutline, createOutline, checkmarkCircle, saveOutline, close } from 'ionicons/icons';
+import { cashOutline, homeOutline, personOutline, rocketOutline, add, arrowUndoCircle, documentText, logIn, exit, lockClosedOutline, createOutline, checkmarkCircle, saveOutline, close, menu, eye, pencil, trashSharp } from 'ionicons/icons';
 
 @Component({
   selector: 'root',
@@ -34,7 +34,11 @@ export class AppComponent {
           createOutline,
           checkmarkCircle,
           saveOutline,
-          close
+          close,
+          menu,
+          eye,
+          pencil,
+          trashSharp
         });
 
     effect(() => {

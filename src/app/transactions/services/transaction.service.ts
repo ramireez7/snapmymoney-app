@@ -45,7 +45,7 @@ export class TransactionService {
     transaction: TransactionInsert
   ): Observable<Transaction> {
     return this.#http
-      .put<SingleTransactionResponse>(
+      .patch<SingleTransactionResponse>(
         `${this.#transactionsUrl}/${id}`,
         transaction
       )

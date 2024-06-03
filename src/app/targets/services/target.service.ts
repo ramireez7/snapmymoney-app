@@ -39,7 +39,7 @@ export class TargetService {
 
   editTarget(id: number, target: TargetInsert): Observable<Target> {
     return this.#http
-      .put<SingleTargetResponse>(`${this.#targetsUrl}/${id}`, target)
+      .patch<SingleTargetResponse>(`${this.#targetsUrl}/${id}`, target)
       .pipe(map((resp) => resp.target));
   }
 

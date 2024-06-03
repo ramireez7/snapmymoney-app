@@ -22,4 +22,11 @@ export const routes: Routes = [
     path: '**',
     redirectTo: '/tabs/home',
   },
+  // Otras rutas
+  { path: 'temp-route', redirectTo: '', pathMatch: 'full' }, // Ruta temporal
+  {
+    path: '',
+    loadChildren: () =>
+      import('./tabs/tabs.page').then((m) => m.TabsPage),
+  },
 ];

@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Editar transacción</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+  @if(transaction){
+<ion-content>
+  <form #transactionDetailForm="ngForm" (ngSubmit)="send()">
+    <ion-list>
+      <ion-item>
+        <ion-input name="name" label="Nombre" labelPlacement="floating" required [(ngModel)]="transaction.name" #nameModel="ngModel"></ion-input>
+        @if (nameModel.dirty && nameModel.valid) {
+        <ion-icon name="checkmark-circle" slot="end" color="success"></ion-icon>
+        }
+      </ion-item>
+      <ion-item>
+        <ion-input type="number" name="transaction_amount" required [(ngModel)]="transaction.amount" #amountModel="ngModel" label="Cuantía" labelPlacement="floating"></ion-input>
+        @if (amountModel.dirty && amountModel.valid) {
+          <ion-icon name="checkmark-circle" slot="end" color="success"></ion-icon>
+        }
+      </ion-item>
+      <ion-item>
+      <ion-select
+        label="Tipo de transacción"
+        [multiple]="false"
+        required
+        [(ngModel)]="transaction.transaction_type_id"
+        name="transaction_type_id"
+        label-placement="floating"
+      >
+      @for(transactionType of transactionTypes; track transactionType){
+        <ion-select-option value="{{transactionType.id}}">{{transactionType.name}}</ion-select-option>
+      }
+      </ion-select>
+    </ion-item>
+      <ion-item>
+      <ion-select
+        label="Categoría de transacción (opcional)"
+        [multiple]="false"
+        [(ngModel)]="transaction.transaction_category_id"
+        name="transaction_category_id"
+        label-placement="floating"
+      >
+      <ion-select-option [value]="null">Sin categoría</ion-select-option>
+      @for(transactionCategory of transactionCategories; track transactionCategory){
+        <ion-select-option [(ngModel)]="transaction.transaction_category_id" value="{{transactionCategory.id}}">{{transactionCategory.name}}</ion-select-option>
+      }
+      </ion-select>
+    </ion-item>
+    </ion-list>
+    <ion-button type="submit" color="primary" expand="block" [disabled]="transactionDetailForm.invalid">
+    <ion-icon name="save-outline"></ion-icon>
+      Guardar Cambios
+    </ion-button>
+  </form>
+</ion-content>
+}

@@ -25,6 +25,8 @@ import { TargetService } from './services/target.service';
 import { Target } from './interfaces/target';
 import { Preferences } from '@capacitor/preferences';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { TargetCategoryService } from '../targetCategories/services/targetCategory.service';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'targets',
@@ -53,12 +55,14 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     IonProgressBar,
     RouterLink,
     RouterLinkActive,
-    IonButton
+    IonButton,
+    CurrencyPipe
   ],
 })
 export class TargetsPage {
   targets: Target[] = [];
   #targetsService = inject(TargetService);
+  #targetCategoryService = inject(TargetCategoryService);
 
   ionViewWillEnter() {
     Preferences.get({ key: 'user-id' })
@@ -68,6 +72,12 @@ export class TargetsPage {
           .getTargetsByUserId(Number(userId))
           .subscribe((targets) => {
             this.targets = targets;
+            this.targets.forEach((target) => {
+              this.#targetCategoryService.getTargetCategoryById(target.target_category_id!).subscribe((targetCategory) => {
+                target.target_category_name =
+                  targetCategory.name;
+              });
+            });
           });
       })
       .catch((error) => {
