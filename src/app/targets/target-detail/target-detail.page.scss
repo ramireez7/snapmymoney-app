@@ -50,7 +50,48 @@ ion-label{
   font-size: 0.9em;
 }
 
-.go-back{
-  width: 98%;
+.long{
+  width: 90%;
   margin: 5px auto;
+}
+
+.register-saving {
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+ion-progress-bar{
+  border-radius: 5px;
+  height: 15px;
+  background-color: white;
+  margin-bottom: 20px;
+}
+
+.progress-text{
+  margin: auto;
+  margin-top: 20px;
+}
+
+.above-progress-bar{
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+
+  h6{
+    font-size: 13px;
+  }
+}
+
+.register-saving-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.register-saving {
+  flex: 1;
+  margin: 0 5px;
+  width: 30px;
+  height: 40px;
 }

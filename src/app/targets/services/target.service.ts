@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Target, TargetInsert } from 'src/app/targets/interfaces/target';
+import { Target, TargetAmount, TargetInsert } from 'src/app/targets/interfaces/target';
 import { Observable, map } from 'rxjs';
 import {
   TargetsResponse,
@@ -40,6 +40,12 @@ export class TargetService {
   editTarget(id: number, target: TargetInsert): Observable<Target> {
     return this.#http
       .patch<SingleTargetResponse>(`${this.#targetsUrl}/${id}`, target)
+      .pipe(map((resp) => resp.target));
+  }
+
+  updateTargetAmount(targetId: Number, amount: TargetAmount): Observable<Target> {
+    return this.#http
+      .put<SingleTargetResponse>(`${this.#targetsUrl}/${targetId}`, amount)
       .pipe(map((resp) => resp.target));
   }
 

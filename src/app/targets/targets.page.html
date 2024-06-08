@@ -44,7 +44,7 @@
             </ion-row>
             <ion-row class="above-progress-bar">
               <h6>
-                {{target.current_amount! * 100 / target.target_amount! + "%"}}</h6
+                {{ percentages[target.id!] + "%"}}</h6
               >
               <h6>
                 {{target.target_amount | currency: "EUR"}}</h6

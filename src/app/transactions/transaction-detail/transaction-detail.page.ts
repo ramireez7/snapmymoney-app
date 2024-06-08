@@ -77,12 +77,14 @@ export class TransactionDetailPage {
         .subscribe((transaction) => {
           if (transaction) {
             this.transaction = transaction;
-            this.#transactionCategoryService
+            if(transaction.transaction_category_id){
+              this.#transactionCategoryService
               .getTransactionCategoryById(transaction.transaction_category_id!)
               .subscribe((transactionCategory) => {
                 transaction.transaction_category_name =
                   transactionCategory.name;
               });
+            }
           } else {
             console.error('No se encontró ninguna transacción con el ID:', id);
           }
@@ -119,7 +121,7 @@ export class TransactionDetailPage {
           await this.#toastCtrl.create({
             position: 'bottom',
             duration: 2000,
-            message: 'Transaction deleted succesfully',
+            message: 'Transacción eliminada con éxito!',
             color: 'success',
           })
         ).present();
@@ -130,7 +132,7 @@ export class TransactionDetailPage {
           await this.#toastCtrl.create({
             position: 'bottom',
             duration: 2000,
-            message: 'Error deleting transaction',
+            message: 'Ha ocurrdo un error eliminando la transacción',
           })
         ).present()
     );

@@ -21,8 +21,7 @@
         label="Tipo de transacción"
         [multiple]="false"
         [(ngModel)]="newTransaction.transaction_type_id"
-        name="mood"
-        label-placement="floating"
+        name="transaction_type_id"
       >
       @for(transactionType of transactionTypes; track transactionType){
         <ion-select-option value="{{transactionType.id}}">{{transactionType.name}}</ion-select-option>
@@ -37,11 +36,10 @@
       </ion-item>
       <ion-item>
       <ion-select
-        label="Categoría de transacción (opcional)"
+        label="Categoría (opcional)"
         [multiple]="false"
         [(ngModel)]="newTransaction.transaction_category_id"
-        name="mood"
-        label-placement="floating"
+        name="transaction_category_id"
       >
       <ion-select-option value="null">Sin categoría</ion-select-option>
       @for(transactionCategory of transactionCategories; track transactionCategory){
@@ -60,7 +58,7 @@
           </ion-button>
         </ion-col>
         <ion-col>
-          <ion-button color="danger" expand="block" fill="outline" [routerLink]="['/tabs/transactions']" [routerDirection]="'root'">
+          <ion-button color="medium" expand="block" [routerLink]="['/tabs/transactions']" [routerDirection]="'root'">
             <ion-icon name="arrow-undo-circle" slot="start"></ion-icon>
             Cancelar
           </ion-button>

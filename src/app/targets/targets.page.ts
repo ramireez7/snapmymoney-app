@@ -56,13 +56,14 @@ import { CurrencyPipe } from '@angular/common';
     RouterLink,
     RouterLinkActive,
     IonButton,
-    CurrencyPipe
+    CurrencyPipe,
   ],
 })
 export class TargetsPage {
   targets: Target[] = [];
   #targetsService = inject(TargetService);
   #targetCategoryService = inject(TargetCategoryService);
+  percentages: { [key: number]: number } = {};
 
   ionViewWillEnter() {
     Preferences.get({ key: 'user-id' })
@@ -73,10 +74,14 @@ export class TargetsPage {
           .subscribe((targets) => {
             this.targets = targets;
             this.targets.forEach((target) => {
-              this.#targetCategoryService.getTargetCategoryById(target.target_category_id!).subscribe((targetCategory) => {
-                target.target_category_name =
-                  targetCategory.name;
-              });
+              if(target.target_category_id){
+                this.#targetCategoryService
+                  .getTargetCategoryById(target.target_category_id!)
+                  .subscribe((targetCategory) => {
+                    target.target_category_name = targetCategory.name;
+                });
+              }
+              this.percentages[target.id!] = parseFloat(((target.current_amount! / target.target_amount!) * 100).toFixed(0));
             });
           });
       })

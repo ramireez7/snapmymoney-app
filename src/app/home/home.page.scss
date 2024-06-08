@@ -51,3 +51,35 @@ ion-card {
 .transaction-category {
   color: var(--ion-color-medium-tint);
 }
+
+.pb-5{
+  padding-bottom: 5px;
+}
+
+ion-progress-bar{
+  border-radius: 5px;
+  height: 10px;
+  background-color: white;
+}
+
+.above-progress-bar{
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+
+  h6{
+    margin-top: 2px;
+    font-size: 13px;
+  }
+}
+
+#chart {
+  max-width: 380px;
+  margin: 35px auto;
+  padding: 0;
+}
+
+apx-chart{
+  width: 500px;
+  height: 500px;
+}

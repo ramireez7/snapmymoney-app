@@ -106,8 +106,8 @@ export class TargetFormPage {
         (
           await this.#toastCtrl.create({
             position: 'bottom',
-            duration: 3000,
-            message: 'Target added succesfully',
+            duration: 2000,
+            message: 'Objetido creado con éxito!',
             color: 'success',
           })
         ).present();
@@ -117,8 +117,8 @@ export class TargetFormPage {
         (
           await this.#toastCtrl.create({
             position: 'bottom',
-            duration: 3000,
-            message: 'Error adding target',
+            duration: 2000,
+            message: 'Ha ocurrido un error creando el objetivo',
           })
         ).present()
     );

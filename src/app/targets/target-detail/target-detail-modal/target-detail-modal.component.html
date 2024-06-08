@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Editar transacción</ion-title>
+    <ion-title>Editar objetivo</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="close()">
         <ion-icon slot="icon-only" name="close"></ion-icon>
@@ -20,20 +20,21 @@
         }
       </ion-item>
       <ion-item>
-        <ion-input type="number" name="target_amount" required [(ngModel)]="target.target_amount" #amountModel="ngModel" label="Cuantía" labelPlacement="floating"></ion-input>
+        <ion-input type="number" name="target_amount" required [(ngModel)]="target.target_amount" #amountModel="ngModel" label="Dinero a ahorrar" labelPlacement="floating"></ion-input>
         @if (amountModel.dirty && amountModel.valid) {
           <ion-icon name="checkmark-circle" slot="end" color="success"></ion-icon>
         }
       </ion-item>
       <ion-item>
       <ion-select
-        label="Categoría de transacción (opcional)"
+        label="Categoría (opcional)"
+        required="false"
+        [placeholder]="target.target_category_id ? target.target_category_name : 'Sin categoría'"
         [multiple]="false"
         [(ngModel)]="target.target_category_id"
         name="target_category_id"
-        label-placement="floating"
       >
-      <ion-select-option [value]="null">Sin categoría</ion-select-option>
+      <ion-select-option [(ngModel)]="target.target_category_id" [value]="null">Sin categoría</ion-select-option>
       @for(targetCategory of targetCategories; track targetCategory){
         <ion-select-option [(ngModel)]="target.target_category_id" value="{{targetCategory.id}}">{{targetCategory.name}}</ion-select-option>
       }

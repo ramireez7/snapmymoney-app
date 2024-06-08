@@ -28,11 +28,11 @@
       <ion-item>
       <ion-select
         label="Tipo de transacción"
+        [placeholder]="transaction.transaction_type_id === 1 ? 'Gasto' : 'Ingreso'"
         [multiple]="false"
         required
         [(ngModel)]="transaction.transaction_type_id"
         name="transaction_type_id"
-        label-placement="floating"
       >
       @for(transactionType of transactionTypes; track transactionType){
         <ion-select-option value="{{transactionType.id}}">{{transactionType.name}}</ion-select-option>
@@ -41,13 +41,14 @@
     </ion-item>
       <ion-item>
       <ion-select
-        label="Categoría de transacción (opcional)"
+        label="Categoría (opcional)"
+        required="false"
+        [placeholder]="transaction.transaction_category_id ? transaction.transaction_category_name : 'Sin categoría'"
         [multiple]="false"
         [(ngModel)]="transaction.transaction_category_id"
         name="transaction_category_id"
-        label-placement="floating"
       >
-      <ion-select-option [value]="null">Sin categoría</ion-select-option>
+      <ion-select-option [(ngModel)]="transaction.transaction_category_id" [value]="null">Sin categoría</ion-select-option>
       @for(transactionCategory of transactionCategories; track transactionCategory){
         <ion-select-option [(ngModel)]="transaction.transaction_category_id" value="{{transactionCategory.id}}">{{transactionCategory.name}}</ion-select-option>
       }

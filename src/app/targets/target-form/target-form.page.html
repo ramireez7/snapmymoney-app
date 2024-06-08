@@ -24,15 +24,14 @@
       </ion-item>
       <ion-item>
       <ion-select
-        label="Categoría de objetivo (opcional)"
+        label="Categoría (opcional)"
         [multiple]="false"
         [(ngModel)]="newTarget.target_category_id"
-        name="mood"
-        label-placement="floating"
+        name="target_category_id"
       >
-      <ion-select-option [value]="null">Sin categoría</ion-select-option>
+      <ion-select-option [(ngModel)]="newTarget.target_category_id" [value]="null">Sin categoría</ion-select-option>
       @for(targetCategory of targetCategories; track targetCategory){
-        <ion-select-option value="{{targetCategory.id}}">{{targetCategory.name}}</ion-select-option>
+        <ion-select-option [(ngModel)]="newTarget.target_category_id" value="{{targetCategory.id}}">{{targetCategory.name}}</ion-select-option>
       }
       </ion-select>
     </ion-item>
@@ -47,7 +46,7 @@
           </ion-button>
         </ion-col>
         <ion-col>
-          <ion-button color="danger" expand="block" fill="outline" [routerLink]="['/tabs/targets']" [routerDirection]="'root'">
+          <ion-button color="medium" expand="block" [routerLink]="['/tabs/targets']" [routerDirection]="'root'">
             <ion-icon name="arrow-undo-circle" slot="start"></ion-icon>
             Cancelar
           </ion-button>
