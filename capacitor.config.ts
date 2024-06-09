@@ -1,9 +1,15 @@
-import type { CapacitorConfig } from '@capacitor/cli';
+import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'snapmymoney-app',
-  webDir: 'www'
+  appId: 'es.snapmymoney',
+  appName: 'SnapMyMoney',
+  webDir: 'www',
+  server: {
+    androidScheme: 'https',
+  },
+  android: {
+    allowMixedContent: true,
+  },
 };
 
 export default config;

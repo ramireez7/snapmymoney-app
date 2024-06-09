@@ -55,6 +55,29 @@
 
   <ion-card>
     <ion-card-header>
+      <ion-card-title>Resumen general de gastos</ion-card-title>
+      <ion-card-subtitle
+        >¿En qué te estás gastando el dinero?</ion-card-subtitle
+      >
+    </ion-card-header>
+    <ion-card-content>
+      <ion-card-subtitle>GASTADO ESTE MES</ion-card-subtitle>
+      <ion-card-title>{{ thisMonthExpense | currency:'EUR':'symbol':'1.2-2' }}</ion-card-title>
+        <div id="chart">
+          @if(chartOptions.series && chartOptions.series.length > 0 && chartOptions.chart && chartOptions.labels && chartOptions.labels.length > 0 && chartOptions.responsive && chartOptions.responsive.length > 0 && chartOptions.responsive[0].options.chart.width === 300 && chartOptions.responsive[0].options.legend.position === 'bottom'){
+            <apx-chart
+            [series]="transactionCategoryAmounts"
+            [chart]="chartConfig"
+            [labels]="transactionCategoryNames"
+            [responsive]="responsiveConfig"
+          ></apx-chart> 
+          }
+        </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
       <ion-card-title>Últimas transacciones</ion-card-title>
       <ion-card-subtitle>Estas son tus transacciones más recientes</ion-card-subtitle>
     </ion-card-header>
@@ -62,7 +85,7 @@
       <ion-list>
         @if(transactions.length > 0){ @for (transaction of transactions.slice(0, 4); track
         transaction) {
-        <ion-item>
+        <ion-item [routerLink]="['/tabs/transactions/'+ transaction.id]" routerLinkActive="router-link-active">
           <ion-thumbnail slot="start">
             <img
               alt="Silhouette of mountains"
@@ -80,7 +103,7 @@
             </ion-row>
             <ion-row>
               <ion-label class="transaction-category pb-5"
-                >{{transaction.transaction_category_id ? transaction.transaction_category_name : "Sin categoría"}}</ion-label
+                >{{transaction.transaction_category_name ? transaction.transaction_category_name : "Sin categoría"}}</ion-label
               >
             </ion-row>
             <ion-row>
@@ -95,9 +118,6 @@
               }
             </ion-row>
           </ion-grid>
-          <ion-button slot="end" fill="clear" color="medium " size="big" [routerLink]="['/tabs/transactions/'+ transaction.id]" routerLinkActive="router-link-active">
-            <ion-icon slot="icon-only" name="pencil"></ion-icon>
-          </ion-button>
         </ion-item>
         }
         <ion-button
@@ -105,7 +125,7 @@
         routerLinkActive="router-link-active"
         class="d-flex"
         style="margin: 25px auto; width: 90%;"
-        >Ir al apartado de transacciones</ion-button
+        >Ir a mis transacciones</ion-button
         >
       }@else {
         <ion-button
@@ -121,32 +141,6 @@
 
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Resumen general de gastos</ion-card-title>
-      <ion-card-subtitle
-        >¿En qué te estás gastando el dinero?</ion-card-subtitle
-      >
-    </ion-card-header>
-    <ion-card-content>
-      <ion-card>
-        <ion-card-subtitle>ESTE MES</ion-card-subtitle>
-        <ion-card-title>{{ thisMonthExpense | currency:'EUR':'symbol':'1.2-2' }}</ion-card-title>
-        <ion-card-content id="chart">
-          @if(chartOptions.series && chartOptions.chart && chartOptions.responsive){
-            <apx-chart
-            [series]="chartOptions.series!"
-            [chart]="chartOptions.chart!"
-            [labels]="chartOptions.labels"
-            [responsive]="chartOptions.responsive!"
-            style="width: 100%; height: 300px;"
-          ></apx-chart>
-          }
-        </ion-card-content>
-      </ion-card>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header>
       <ion-card-title>Tu progreso hacia tus objetivos</ion-card-title>
       <ion-card-subtitle
         >¿Cuál es el estado actual de tus objetivos?</ion-card-subtitle
@@ -156,7 +150,7 @@
       @if(targets.length > 0){
       <ion-card style="margin: 0px">
         @for (target of targets.slice(0, 4); track target) {
-        <ion-item>
+        <ion-item [routerLink]="['/tabs/targets/'+ target.id]"routerLinkActive="router-link-active">
           <ion-thumbnail slot="start">
             <img
               alt="Target icon"
@@ -169,7 +163,7 @@
             </ion-row>
             <ion-row>
               <ion-label class="transaction-category"
-                >{{target.target_category_id ? target.target_category_name : "Sin categoría"}}</ion-label
+                >{{target.target_category_name ? target.target_category_name : "Sin categoría"}}</ion-label
               >
             </ion-row>
             <ion-row class="above-progress-bar">
@@ -186,9 +180,6 @@
               ></ion-progress-bar>
             </ion-row>
           </ion-grid>
-          <ion-button slot="end" fill="clear" color="medium " size="big" [routerLink]="['/tabs/targets/'+ target.id]"routerLinkActive="router-link-active">
-            <ion-icon slot="icon-only" name="pencil"></ion-icon>
-          </ion-button>
         </ion-item>
         }
         <ion-button
@@ -196,7 +187,7 @@
         routerLinkActive="router-link-active"
         class="d-flex"
         style="margin: 25px auto; width: 80%;"
-        >Ir al apartado de objetivos</ion-button
+        >Ir a mis objetivos</ion-button
         >
       </ion-card>
       }@else {

@@ -57,15 +57,17 @@ export class TransactionsPage {
           .subscribe((transactions) => {
             this.transactions = transactions;
             this.transactions.forEach((transaction) => {
-              if(transaction.transaction_category_id){
+              if (transaction.transaction_category_id) {
                 this.#transactionCategoryService
-                .getTransactionCategoryById(
-                  transaction.transaction_category_id!
-                )
-                .subscribe((transactionCategory) => {
-                  transaction.transaction_category_name =
-                    transactionCategory.name;
-                }); 
+                  .getTransactionCategoryById(
+                    transaction.transaction_category_id!
+                  )
+                  .subscribe((transactionCategory) => {
+                    transaction.transaction_category_name =
+                      transactionCategory.name;
+                  });
+              } else {
+                transaction.transaction_category_name = 'Sin categoría';
               }
             });
           });

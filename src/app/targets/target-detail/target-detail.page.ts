@@ -106,6 +106,8 @@ export class TargetDetailPage {
           .subscribe((targetCategory) => {
             target.target_category_name = targetCategory.name;
           });
+        } else {
+          target.target_category_name = 'Sin categoría';
         }
         this.percentage = (target.current_amount! / target.target_amount!) * 100;
         this.percentage = parseFloat(this.percentage.toFixed(0));

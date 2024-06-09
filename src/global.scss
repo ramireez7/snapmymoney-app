@@ -36,7 +36,7 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
 
-// Text Alignment
+/* Text Alignment */
 .text-center {
   text-align: center !important;
 }
@@ -49,7 +49,7 @@
   text-align: right !important;
 }
 
-// Display
+/* Display */
 .d-block {
   display: block !important;
 }
@@ -70,7 +70,7 @@
   display: inline-flex !important;
 }
 
-// Flexbox Utilities
+/* Flexbox Utilities */
 .justify-content-center {
   justify-content: center !important;
 }
@@ -95,7 +95,7 @@
   align-items: flex-end !important;
 }
 
-// Margin and Padding
+/* Margin and Padding */
 .m-0 {
   margin: 0 !important;
 }
@@ -154,7 +154,7 @@
   padding-right: 0 !important;
 }
 
-// Width and Height
+/*Width and Height*/
 .w-100 {
   width: 100% !important;
 }
@@ -163,7 +163,7 @@
   height: 100% !important;
 }
 
-// Centering Elements
+/* Centering Elements */
 .center-block {
   display: block;
   margin-left: auto;
@@ -176,8 +176,7 @@
   align-items: center;
 }
 
-
-// Background Colors
+/* Background Colors */
 .bg-primary {
   background-color: var(--ion-color-primary);
 }

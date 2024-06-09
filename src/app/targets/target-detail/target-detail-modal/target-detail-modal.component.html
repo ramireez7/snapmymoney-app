@@ -29,7 +29,7 @@
       <ion-select
         label="Categoría (opcional)"
         required="false"
-        [placeholder]="target.target_category_id ? target.target_category_name : 'Sin categoría'"
+        [placeholder]="target.target_category_name ? target.target_category_name : 'Sin categoría'"
         [multiple]="false"
         [(ngModel)]="target.target_category_id"
         name="target_category_id"

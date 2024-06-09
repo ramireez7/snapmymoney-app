@@ -19,7 +19,9 @@ import {
   IonGrid,
   IonRow,
   IonProgressBar,
-  IonButton
+  IonButton,
+  IonRefresher,
+  IonRefresherContent
 } from '@ionic/angular/standalone';
 import { TargetService } from './services/target.service';
 import { Target } from './interfaces/target';
@@ -57,6 +59,8 @@ import { CurrencyPipe } from '@angular/common';
     RouterLinkActive,
     IonButton,
     CurrencyPipe,
+    IonRefresher,
+    IonRefresherContent,
   ],
 })
 export class TargetsPage {
@@ -74,14 +78,51 @@ export class TargetsPage {
           .subscribe((targets) => {
             this.targets = targets;
             this.targets.forEach((target) => {
-              if(target.target_category_id){
+              if (target.target_category_id) {
                 this.#targetCategoryService
                   .getTargetCategoryById(target.target_category_id!)
                   .subscribe((targetCategory) => {
                     target.target_category_name = targetCategory.name;
-                });
+                  });
+              } else {
+                target.target_category_name = 'Sin categoría';
               }
-              this.percentages[target.id!] = parseFloat(((target.current_amount! / target.target_amount!) * 100).toFixed(0));
+              this.percentages[target.id!] = parseFloat(
+                (
+                  (target.current_amount! / target.target_amount!) *
+                  100
+                ).toFixed(0)
+              );
+            });
+          });
+      })
+      .catch((error) => {
+        console.error('Error al obtener user-id de Preferences:', error);
+      });
+  }
+
+  reloadTargets(refresher: any) {
+    Preferences.get({ key: 'user-id' })
+      .then((result) => {
+        const userId = result.value;
+        this.#targetsService
+          .getTargetsByUserId(Number(userId))
+          .subscribe((targets) => {
+            this.targets = targets;
+            this.targets.forEach((target) => {
+              if (target.target_category_id) {
+                this.#targetCategoryService
+                  .getTargetCategoryById(target.target_category_id!)
+                  .subscribe((targetCategory) => {
+                    target.target_category_name = targetCategory.name;
+                  });
+              }
+              this.percentages[target.id!] = parseFloat(
+                (
+                  (target.current_amount! / target.target_amount!) *
+                  100
+                ).toFixed(0)
+              );
             });
           });
       })
