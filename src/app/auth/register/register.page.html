@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title>Register</ion-title>
+    <ion-title>Registrarse</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -21,7 +21,7 @@
       </ion-item>
 
       <ion-item>
-        <ion-input type="password" name="password" label="Password" labelPlacement="floating" minlength="4" required [(ngModel)]="user.password" #passModel="ngModel"></ion-input>
+        <ion-input type="password" name="password" label="Contraseña" labelPlacement="floating" minlength="4" required [(ngModel)]="user.password" #passModel="ngModel"></ion-input>
         @if (passModel.dirty && passModel.valid) {
         <ion-icon name="checkmark-circle" slot="end" color="success"></ion-icon>
         }
@@ -38,7 +38,7 @@
         <ion-col>
           <ion-button type="submit" color="primary" expand="block" [disabled]="registerForm.invalid">
             <ion-icon name="document-text" slot="start"></ion-icon>
-            Register
+            Registrarse
           </ion-button>
         </ion-col>
         <ion-col>
